@@ -1,6 +1,7 @@
 var Hapi = require('hapi'),
     fs = require('fs'),
-    crypto = require('crypto');
+    crypto = require('crypto'),
+    cp = require('child_process');;
 
 var server = new Hapi.Server(),
     port = 3001;
@@ -40,4 +41,5 @@ function uploadHandler(request, reply) {
 
 server.start(function() {
     console.log('Upload service started on port ' + port);
+    cp.fork(__dirname + '/readService.js');
 });
